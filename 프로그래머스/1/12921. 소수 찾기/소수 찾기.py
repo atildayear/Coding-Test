@@ -1,15 +1,19 @@
 def solution(n):
-    # n+1 길이의 True 리스트 생성 (소수 여부를 표시)
-    sieve = [True] * (n + 1)
-    
-    # 0과 1은 소수가 아니므로 False로 설정
-    sieve[0] = sieve[1] = False
+    if n < 2:
+        return 0
 
-    # 2부터 sqrt(n)까지 반복하면서 배수들을 False로 표시
-    for i in range(2, int(n**0.5) + 1):
-        if sieve[i]:  # i가 소수일 경우
-            for j in range(i*i, n + 1, i):  # i의 배수들을 False로 설정
-                sieve[j] = False
+    # 소수 여부를 나타내는 불리언 리스트 초기화
+    is_prime = [True] * (n + 1)
+    is_prime[0] = is_prime[1] = False  # 0과 1은 소수가 아님
 
-    # True인 값의 개수를 세서 반환 (소수의 개수)
-    return sum(sieve)
+    # 에라토스테네스의 체 구현
+    p = 2
+    while p * p <= n:
+        if is_prime[p]:
+            for i in range(p * p, n + 1, p):
+                is_prime[i] = False
+        p += 1
+
+    # 소수의 개수 계산
+    answer = sum(is_prime)
+    return answer
