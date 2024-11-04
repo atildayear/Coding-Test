@@ -3,7 +3,12 @@ from collections import Counter
 def solution(topping):
     answer = 0
     bro = set()             # 동생이 가진 토핑 종류
-    cheolsu = Counter(topping)  # 전체 토핑의 종류와 개수
+    cheolsu = {}
+    for t in topping:
+        if t in cheolsu:
+            cheolsu[t] += 1
+        else:
+            cheolsu[t] = 1
 
     for t in topping:
         bro.add(t)         # 현재 토핑을 동생의 집합에 추가
